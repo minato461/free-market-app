@@ -7,11 +7,12 @@
 **Homebrew**、**PHP**、**Composer**、**MySQL** がインストールされていることを確認してください。
 
 
-# Composer のインストールを確認 (バージョンが表示されればOK)
+Composer のインストールを確認 (バージョンが表示されればOK)
 ```bash
 composer --version
+```
 
-# Homebrew で PHP と MySQL をインストール
+Homebrew で PHP と MySQL をインストール
 ```bash
 brew install php composer mysql
 ```
