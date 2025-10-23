@@ -6,11 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +33,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
     ];
 
     /**
@@ -45,4 +49,30 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function items()
+    {
+        return $this->hasMany(\App\Models\Item::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(\App\Models\Item::class, 'likes', 'user_id', 'item_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\Models\Comment::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(\App\Models\Purchase::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(\App\Models\PersonalAddress::class);
+    }
+
 }
