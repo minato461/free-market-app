@@ -12,7 +12,7 @@
         <header class="header">
             <div class="header__inner">
                 <h1 class="header__logo">
-                    <a href="/"><img src="path/to/coachtech_logo.png" alt="COACHTECH"></a>
+                    <a href="/">COACHTECH</a>
                 </h1>
                 <div class="header__search">
                     <input type="text" placeholder="なにをお探しですか?" class="search__input">
@@ -41,7 +41,7 @@
                 <div class="item-list">
                     <a href="/item" class="item-card">
                         <div class="item-card__image-wrapper">
-                            <img src="{{ asset('images/腕時計.jpg') }}" alt="" class="item-card__image">
+                            <img src="{{ asset('image/腕時計.jpg') }}" alt="腕時計" class="item-card__image">
                         </div>
                         <p class="item-card__name">腕時計</p>
                     </a>

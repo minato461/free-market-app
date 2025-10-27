@@ -1,10 +1,8 @@
-/* ベースリセット */
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     background-color: #f8f8f8;
-    /* 全体を中央に配置するため、bodyを基準にする */
     position: relative;
     min-height: 100vh;
 }
@@ -20,38 +18,26 @@ ul {
     margin: 0;
 }
 
-/* ----------------------------------
- * ページ全体コンテナ (固定幅 1512px)
- * ---------------------------------- */
-/* すべての要素の親となるコンテナ。幅を固定し、中央に配置 */
 .page-container {
     width: 1512px;
     margin: 0 auto;
-    position: relative; /* 子要素のabsolute配置の基準 */
+    position: relative;
 }
-
-/* ----------------------------------
- * 1. ヘッダー (header)
- * サイズ: 幅 1512px / 高さ 80px
- * ---------------------------------- */
 
 .header {
     width: 1512px;
     height: 80px;
     background-color: black;
     color: white;
-    
-    /* body基準で中央配置を維持しつつ、トップに固定 */
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
     z-index: 10;
-    
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 69px; /* ロゴとナビの左右の余白 */
+    padding: 0 69px;
     box-sizing: border-box;
 }
 
@@ -63,7 +49,7 @@ ul {
 }
 
 .header__logo img {
-    height: 24px; 
+    height: 24px;
     filter: invert(1);
 }
 
@@ -96,20 +82,13 @@ ul {
     font-weight: bold;
 }
 
-/* ----------------------------------
- * 2. メインナビゲーション (リスト)
- * サイズ: 幅 1512px / 高さ 47px / 上 127px
- * ---------------------------------- */
-
 .main-nav {
-    /* 絶対配置で座標を再現 */
-    position: absolute; 
+    position: absolute;
     width: 1512px;
     height: 47px;
-    top: 127px; /* bodyのトップからの距離 127px を再現 */
+    top: 127px;
     left: 50%;
     transform: translateX(-50%);
-    
     border-bottom: 1px solid #ccc;
     background-color: white;
     display: flex;
@@ -133,13 +112,8 @@ ul {
     border-bottom: 2px solid red;
 }
 
-/* ----------------------------------
- * 3. 商品一覧 (グリッド)
- * ---------------------------------- */
-
-/* メインコンテンツエリアを相対配置の基準にし、上部固定ヘッダー・ナビの分だけパディングを設定 */
 .main {
-    padding-top: 180px; /* ヘッダー(80px) + ナビ(47px) + 余白 を考慮 */
+    padding-top: 180px;
     position: relative;
     width: 1512px;
     margin: 0 auto;
@@ -147,27 +121,22 @@ ul {
 }
 
 .item-list-container {
-    /* 座標指定の基準となるコンテナ */
     position: relative;
     width: 100%;
-    padding: 0 69px; /* 商品画像群の左 69pxを再現 */
+    padding: 0 69px;
     box-sizing: border-box;
 }
 
 .item-list {
     display: grid;
-    /* 上段の幅 1374.52px に合うように、4カラムで構成 */
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px; /* カード間のスペース */
+    gap: 20px;
     width: 100%;
-    
-    /* 商品画像(上段)の「上 250.39px」はナビエリアの終了後すぐと解釈し、
-       mainのパディングと合わせる */
-    margin-top: 50px; /* ナビエリアからの垂直距離の調整 */
+    margin-top: 50px;
 }
 
 .item-card__image-wrapper {
-    height: 320px; /* 商品画像の上段・下段の高さ 320px を適用 */
+    height: 320px;
     background-color: #ddd;
     display: flex;
     justify-content: center;
@@ -180,25 +149,20 @@ ul {
     color: #333;
 }
 
-/* 座標指定の再現に関する補足:
- * 厳密な「上 250.39px」や「上 647px」は、CSSフローでなく絶対配置を使わないと実現が困難です。
- * 上記CSSは「固定幅で中央寄せされたコンテナ内で、グリッドを使い、座標を意識した配置」に調整しています。
- * * 下段の「左 69px」は、コンテナのpadding-left: 69pxで再現されています。
- * 下段の「幅 1013.01px」は、グリッドレイアウトの特性上、上段と同じ幅（約330px）のカードが3枚並ぶことで、
- * 結果的に1013px前後の幅になることを期待して、4カラムから3カラムで構成される形とします。
- */
-
-/* ----------------------------------
- * 4. フッター (footer)
- * ---------------------------------- */
-
 .footer {
-    width: 1512px; /* 固定幅 */
+    width: 1512px;
     height: 80px;
     background-color: black;
-    margin: 0 auto; /* 中央寄せ */
+    margin: 0 auto;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.item-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
