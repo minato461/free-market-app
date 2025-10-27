@@ -7,16 +7,49 @@
 **Homebrew**、**PHP**、**Composer**、**MySQL** がインストールされていることを確認してください。
 
 
-Composer のインストールを確認 (バージョンが表示されればOK)
+# Composer のインストールを確認 (バージョンが表示されればOK)
 ```bash
 composer --version
 ```
 
-Homebrew で PHP と MySQL をインストール
+# Homebrew で PHP と MySQL をインストール
 ```bash
 brew install php composer mysql
 ```
 
+### 2. リポジトリのクローンと移動
+```bash
+git clone [git@github.com:minato461/free-market-app.git]
+cd free-market-app
+```
+
+### 3. 環境変数の設定
+```bash
+cp .env.example .env
+```
+# .env ファイルを開き、DB_PASSWORDに任意のパスワードを設定してください。
+
+### 4. Dockerコンテナの起動
+```bash
+docker compose up -d
+```
+
+### 5. 依存パッケージのインストールとマイグレーションの実行
+
+# Appコンテナに入る
+```bash
+docker compose exec app bash
+```
+
+# 依存パッケージのインストール
+```bash
+composer install
+```
+
+# データベーステーブルの作成 (マイグレーション)
+```bash
+php artisan migrate:fresh
+```
 
 ## 🛠️ 使用技術 (Technology Stack)
 
