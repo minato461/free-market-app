@@ -41,12 +41,21 @@
         <main class="main">
             <div class="item-list-container">
                 <div class="item-list">
-                    <a href="/item" class="item-card">
-                        <div class="item-card__image-wrapper">
-                            <img src="{{ asset('image/腕時計.jpg') }}" alt="腕時計" class="item-card__image">
-                        </div>
-                        <p class="item-card__name">腕時計</p>
-                    </a>
+                    @php
+                        $items = [
+                            '腕時計', 'HDD', '玉ねぎ', '革靴', 'ノートPC',
+                            'マイク', 'ショルダーバッグ', 'タンブラー', 'コーヒーミル', 'メイクアップセット'
+                        ];
+                    @endphp
+
+                    @foreach ($items as $item)
+                        <a href="/item" class="item-card">
+                            <div class="item-card__image-wrapper">
+                                <img src="{{ asset('image/' . $item . '.jpg') }}" alt="{{ $item }}" class="item-card__image">
+                            </div>
+                            <p class="item-card__name">{{ $item }}</p>
+                        </a>
+                    @endforeach
 
                 </div>
             </div>
