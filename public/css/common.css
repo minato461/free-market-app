@@ -1,0 +1,37 @@
+body {
+    min-height: 1050px;
+}
+
+.page-container {
+    width: 1515px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.header {
+    width: 1515px;
+    height: 82px;
+    background-color: black;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 69px;
+    box-sizing: border-box;
+}
+
+.header__inner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo img {
+    height: 24px;
+}

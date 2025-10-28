@@ -1,0 +1,57 @@
+/* ==================================
+ * reset.css (リセットCSS)
+ * ================================== */
+
+/* 1. 全要素のmargin, paddingをリセットし、box-sizingをborder-boxに設定 */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. bodyとhtmlの基本設定 */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f8f8f8;
+}
+
+/* 3. HTML5要素の表示設定 (ブロック要素として扱う) */
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+    display: block;
+}
+
+/* 4. 見出し、リスト、段落などのデフォルトの余白をリセット */
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+    margin: 0;
+}
+
+/* 5. リストのデフォルトスタイルをリセット */
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 6. aタグのデフォルトスタイルをリセット */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 7. 画像のレスポンシブ対応とブロック要素化 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 8. フォーム要素の継承設定 */
+button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+}

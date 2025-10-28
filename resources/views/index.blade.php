@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品一覧 | フリマアプリ</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 <body>
 
@@ -12,7 +14,7 @@
         <header class="header">
             <div class="header__inner">
                 <h1 class="header__logo">
-                    <a href="/">COACHTECH</a>
+                    <a><img src="{{ asset('image/logo.svg') }}" alt="COACHTECH"></a>
                 </h1>
                 <div class="header__search">
                     <input type="text" placeholder="なにをお探しですか?" class="search__input">
