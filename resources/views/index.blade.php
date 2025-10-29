@@ -21,8 +21,27 @@
                 </div>
                 <nav class="header__nav">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="/login">ログイン</a></li>
-                        <li class="nav__item"><a href="/mypage">マイページ</a></li>
+                        @guest
+                            <li class="nav__item">
+                                <a href="/login">ログイン</a>
+                            </li>
+                            <li class="nav__item">
+                                <a href="/login">マイページ</a>
+                            </li>
+                        @endguest
+
+                        @auth
+                            <li class="nav__item">
+                                <a href="/mypage">マイページ</a>
+                            </li>
+                            <li class="nav__item">
+                                <form method="POST" action="/logout" id="logout-form">
+                                    @csrf
+                                    <button type="submit" class="logout__button nav__link">ログアウト</button>
+                                </form>
+                            </li>
+                        @endauth
+
                         <li class="nav__item"><a href="/sell" class="sell__button">出品</a></li>
                     </ul>
                 </nav>
@@ -32,8 +51,11 @@
         <div class="main-nav">
             <nav class="tab-nav">
                 <ul class="tab-list">
-                    <li class="tab-item is-active"><a href="/">おすすめ</a></li>
-                    <li class="tab-item"><a href="#">マイリスト</a></li>
+                    <li class="tab-item @guest is-active @endguest">
+                        <a href="/">おすすめ</a>
+                    </li>
+                    <li class="tab-item @auth is-active @endauth">
+                        <a href="/">マイリスト</a>
                 </ul>
             </nav>
         </div>
