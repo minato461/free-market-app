@@ -46,7 +46,6 @@
     left: 50%;
     transform: translateX(-50%);
     border-bottom: 1px solid #ccc;
-    background-color: white;
     display: flex;
     align-items: center;
     padding-left: 69px;
@@ -65,7 +64,6 @@
 
 .tab-item.is-active a {
     color: red;
-    border-bottom: 2px solid red;
 }
 
 .main {
