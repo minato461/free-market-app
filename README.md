@@ -27,7 +27,11 @@ cd free-market-app
 ```bash
 cp .env.example .env
 ```
-# .env ファイルを開き、DB_PASSWORDに任意のパスワードを設定してください。
+# .env ファイル内のDB接続情報が以下のように設定されていることを確認してください。
+```bash
+DB_USERNAME=free_market_user
+DB_PASSWORD=password
+```
 
 ### 4. Dockerコンテナの起動
 ```bash

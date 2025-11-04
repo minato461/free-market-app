@@ -14,7 +14,7 @@ services:
     environment:
       DB_HOST: db
       DB_DATABASE: free_market_db
-      DB_USERNAME: root
+      DB_USERNAME: free_market_user
       DB_PASSWORD: ${DB_PASSWORD}
       SERVICE_NAME: app
 
@@ -38,6 +38,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: free_market_db
+      MYSQL_USER: free_market_user
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "33066:3306"
     volumes:
