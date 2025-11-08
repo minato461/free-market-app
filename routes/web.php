@@ -1,13 +1,45 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-Route::view('/', 'index');
-Route::view('/register', 'register');
-Route::view('/login', 'login');
-Route::view('/item', 'item');
-Route::view('/purchase', 'purchase');
-Route::view('/address', 'address');
-Route::view('/sell', 'sell');
-Route::view('/mypage', 'mypage');
-Route::view('/profile', 'profile');
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ShippingAddressController;
+use App\Http\Controllers\LikeCommentController;
+
+
+Route::get('/', [ItemController::class, 'index'])->name('item.index');
+
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
+
+Route::post('/logout', function (Request $request) {
+    Auth::guard('web')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/')->with('status', 'ログアウトしました。');
+})->middleware('auth')->name('logout');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
+    Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+
+    Route::post('/item/{item_id}/actions', [LikeCommentController::class, 'toggleStore'])->name('item.actions');
+
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'process'])->name('purchase.process');
+
+    Route::get('/mypage/address', [ShippingAddressController::class, 'edit'])->name('address.edit');
+    Route::patch('/mypage/address', [ShippingAddressController::class, 'update'])->name('address.update');
+
+    Route::get('/mypage', [UserController::class, 'showMypage'])->name('user.mypage');
+    Route::get('/mypage/bought', [UserController::class, 'showMypage'])->name('user.bought');
+    Route::get('/mypage/selling', [UserController::class, 'showMypage'])->name('user.selling');
+
+    Route::get('/mypage/profile', [UserController::class, 'edit'])->name('user.profile.edit');
+    Route::patch('/mypage/profile', [UserController::class, 'update'])->name('user.profile.update');
+});

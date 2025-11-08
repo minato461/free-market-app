@@ -17,7 +17,17 @@ services:
       DB_USERNAME: free_market_user
       DB_PASSWORD: ${DB_PASSWORD}
       SERVICE_NAME: app
-
+    depends_on:
+      - db
+      - mailhog
+  mailhog:
+    image: mailhog/mailhog
+    container_name: free-market-mailhog
+    restart: always
+    logging:
+      driver: 'none'
+    ports:
+      - "8025:8025"
   nginx:
     image: nginx:stable-alpine
     container_name: free-market-nginx
