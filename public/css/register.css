@@ -85,3 +85,15 @@
     font-size: 20px;
     text-decoration: none;
 }
+
+.error-message {
+    color: #e3342f;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.form-input.is-invalid {
+    border-color: #e3342f;
+}

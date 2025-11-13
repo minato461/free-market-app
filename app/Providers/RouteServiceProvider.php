@@ -15,7 +15,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
+    public const HOME = '/mypage/profile';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -34,8 +34,6 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
-        
-        // ここにあった Fortify::routes() の呼び出しはすべて削除しました
-        // provides() メソッドも削除しました
+
     }
 }
