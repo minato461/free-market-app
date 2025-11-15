@@ -87,3 +87,46 @@
     font-size: 20px;
     text-decoration: none;
 }
+
+.error-message {
+    color: #e57373;
+
+    font-size: 14px;
+
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* --- タブレット・モバイル対応 (画面幅 850px 以下) --- */
+@media (max-width: 850px) {
+
+    .login-main {
+        min-height: 100vh;
+    }
+
+    .login-container {
+        position: static;
+        width: 90%;
+        max-width: 450px;
+        height: auto;
+        top: 0;
+        left: 0;
+        transform: none;
+        margin: 50px auto;
+        padding: 30px;
+    }
+
+    .login-button {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+        transform: none;
+    }
+
+    .register-link-area {
+        position: static;
+        width: 100%;
+        margin-top: 30px;
+        transform: none;
+    }
+}
