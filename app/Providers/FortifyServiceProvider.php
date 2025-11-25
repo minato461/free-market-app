@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
-use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyRegisterRequest; // 登録リクエストをインポート
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyBaseLoginRequest;
+use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyBaseRegisterRequest;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest; // カスタム登録リクエストをインポート
+use App\Http\Requests\FortifyLoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -45,8 +45,10 @@ class FortifyServiceProvider extends ServiceProvider
             return view('login');
         });
 
-        $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
 
-        $this->app->bind(FortifyRegisterRequest::class, RegisterRequest::class);
+        $this->app->bind(FortifyBaseLoginRequest::class, FortifyLoginRequest::class);
+
+        $this->app->bind(FortifyBaseRegisterRequest::class, RegisterRequest::class);
+
     }
 }

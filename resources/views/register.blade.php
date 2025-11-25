@@ -14,7 +14,7 @@
         <header class="header">
             <div class="header__inner register-logo-only">
                 <h1 class="header__logo">
-                    <a><img src="{{ asset('image/logo.svg') }}" alt="COACHTECH"></a>
+                    <a href="{{ route('item.index') }}"><img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH"></a>
                 </h1>
             </div>
         </header>

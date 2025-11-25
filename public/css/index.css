@@ -50,6 +50,7 @@
     align-items: center;
     padding-left: 69px;
     box-sizing: border-box;
+    z-index: 100;
 }
 
 .tab-list {
@@ -57,13 +58,26 @@
     gap: 30px;
 }
 
-.tab-item a {
+.tab-item a, .tab-item .nav-disabled {
     padding: 10px 0;
     font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.tab-item a {
+    color: #333;
+}
+
+.tab-item .nav-disabled {
+    color: #333;
+    cursor: default;
 }
 
 .tab-item.is-active a {
     color: red;
+    border-bottom: 3px solid red;
+    padding-bottom: 7px;
 }
 
 .main {
@@ -95,6 +109,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .item-card__image {
@@ -104,8 +120,94 @@
     display: block;
 }
 
-.item-card__name {
-    margin-top: 5px;
-    font-size: 0.9em;
+.item-card__sold-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    background-color: #ff4500;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    z-index: 10;
+    opacity: 0.9;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border: 3px solid white;
+}
+
+.item-card__info {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-card__like-count {
+    display: flex;
+    align-items: center;
     color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.item-card__like-count i {
+    margin-right: 4px;
+    color: #ff4500;
+}
+
+/* -------------------------------------------------------------------- */
+/* スマホ対応 (画面幅が 767px 以下の場合に適用) */
+/* -------------------------------------------------------------------- */
+@media (max-width: 767px) {
+    .header {
+        padding: 10px 0;
+    }
+    .header__inner {
+        padding: 0 10px;
+    }
+
+    .header__logo img {
+        height: 30px;
+    }
+
+    .header__nav .nav__list {
+        gap: 10px;
+    }
+    .sell__button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+
+    .main {
+        padding-top: 20px;
+        padding: 20px 10px 0 10px;
+    }
+
+    .main-nav {
+        top: auto;
+        padding-left: 10px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .tab-list {
+        gap: 20px;
+    }
+
+    .item-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .item-card__image-wrapper {
+        height: 180px;
+    }
+
+    .item-card__sold-badge {
+        font-size: 1.2rem;
+    }
 }

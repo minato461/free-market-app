@@ -25,6 +25,8 @@ Route::post('/logout', function (Request $request) {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::get('/items/likes', [ItemController::class, 'mylist'])->name('item.mylist');
+
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
 
