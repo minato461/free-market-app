@@ -43,25 +43,29 @@
     width: 100%;
     min-height: 100vh;
     background-color: white;
+    padding: 100px 1rem 2rem 1rem;
+    box-sizing: border-box;
 }
 
 .item-detail-wrapper {
     display: flex;
-    justify-content: center;
-    gap: 50px;
-    width: 1515px;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 100px;
+    padding: 0;
     box-sizing: border-box;
 }
 
 .item-image-area {
-    flex: 0 0 500px;
+    flex: 1 1 100%;
 }
 
 .item-image-box {
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
     background-color: #ddd;
     display: flex;
     justify-content: center;
@@ -70,9 +74,75 @@
     color: #888;
 }
 
+.item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .item-content-area {
-    flex: 1;
-    max-width: 600px;
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+
+/* --------------------------------------- */
+/* タブレット対応 (768px以上) */
+/* --------------------------------------- */
+@media (min-width: 768px) {
+    .item-main {
+        padding: 100px 2rem 2rem 2rem;
+    }
+
+    .item-detail-wrapper {
+        flex-direction: row;
+        gap: 30px;
+        max-width: 90%;
+    }
+
+    .item-image-area {
+        flex: 0 0 45%;
+    }
+
+    .item-image-box {
+        width: 100%;
+        height: auto;
+    }
+
+    .item-content-area {
+        flex: 1 1 55%;
+        max-width: 55%;
+    }
+}
+
+
+/* --------------------------------------- */
+/* PC画面対応 (1400px以上) */
+/* --------------------------------------- */
+@media (min-width: 1400px) {
+    .item-main {
+        padding: 100px 1rem 2rem 1rem;
+    }
+
+    .item-detail-wrapper {
+        max-width: 1200px;
+        gap: 50px;
+    }
+
+    .item-image-area {
+        flex: 0 0 500px;
+        max-width: 500px;
+    }
+
+    .item-image-box {
+        width: 500px;
+        height: 500px;
+    }
+
+    .item-content-area {
+        flex: 1;
+        max-width: 600px;
+    }
 }
 
 .item-name {
@@ -140,6 +210,7 @@
     display: flex;
     align-items: center;
     padding: 8px 0;
+    justify-content: space-between;
 }
 
 .spec-label {
@@ -150,6 +221,7 @@
 
 .spec-value {
     flex-grow: 1;
+    text-align: right;
 }
 
 .spec-tag {
@@ -184,6 +256,9 @@
     border-radius: 50%;
     background-color: #ccc;
     margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-name-text {
@@ -197,7 +272,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-top: 10px;
-    resize: none;
+    resize: vertical;
     box-sizing: border-box;
 }
 
@@ -206,6 +281,7 @@
     width: 100%;
     padding: 15px 0;
     margin-top: 10px;
+    margin-bottom: 10px;
     background-color: #e57373;
     color: white;
     font-size: 20px;

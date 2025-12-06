@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Like;
+use App\Models\Comment;
+use App\Models\Purchase;
 
 class Item extends Model
 {
@@ -11,6 +17,7 @@ class Item extends Model
 
     protected $fillable = [
         'user_id',
+        'brand_id',
         'name',
         'description',
         'price',
@@ -24,14 +31,14 @@ class Item extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function categories()
+    public function category()
     {
         return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 
-    public function likedUsers()
+    public function brand()
     {
-        return $this->belongsToMany(User::class, 'likes', 'item_id', 'user_id');
+        return $this->belongsTo(Brand::class);
     }
 
     public function likes()

@@ -14,7 +14,7 @@
         <header class="header">
             <div class="header__inner">
                 <h1 class="header__logo">
-                    <a href="/"><img src="{{ asset('image/logo.svg') }}" alt="COACHTECH"></a>
+                    <a href="{{ route('item.index') }}"><img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH"></a>
                 </h1>
                 <div class="header__search">
                     <input type="text" placeholder="なにをお探しですか?" class="search__input">

@@ -13,7 +13,7 @@ use App\Http\Controllers\LikeCommentController;
 
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
 
-Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
+Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.show');
 
 Route::post('/logout', function (Request $request) {
     Auth::guard('web')->logout();
@@ -25,12 +25,16 @@ Route::post('/logout', function (Request $request) {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::post('/item/{item}/toggle', [LikeCommentController::class, 'toggle'])
+        ->name('like.toggle');
+
+    Route::post('/item/{item}/comment', [LikeCommentController::class, 'store'])
+        ->name('comment.store');
+
     Route::get('/items/likes', [ItemController::class, 'mylist'])->name('item.mylist');
 
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
-
-    Route::post('/item/{item_id}/actions', [LikeCommentController::class, 'toggleStore'])->name('item.actions');
 
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'process'])->name('purchase.process');
