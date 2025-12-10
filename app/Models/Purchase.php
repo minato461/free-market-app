@@ -13,6 +13,7 @@ class Purchase extends Model
         'user_id',
         'item_id',
         'payment_method',
+        'shipping_address',
     ];
 
     public function user()

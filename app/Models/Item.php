@@ -23,7 +23,6 @@ class Item extends Model
         'price',
         'condition',
         'image_path',
-        'is_sold',
     ];
 
     public function user()
@@ -54,5 +53,10 @@ class Item extends Model
     public function purchase()
     {
         return $this->hasOne(Purchase::class);
+    }
+
+    public function getIsSoldAttribute()
+    {
+        return $this->purchase()->exists();
     }
 }
