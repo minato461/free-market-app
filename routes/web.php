@@ -42,10 +42,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage/address', [ShippingAddressController::class, 'edit'])->name('address.edit');
     Route::patch('/mypage/address', [ShippingAddressController::class, 'update'])->name('address.update');
 
-    Route::get('/mypage', [UserController::class, 'showMypage'])->name('user.mypage');
-    Route::get('/mypage/bought', [UserController::class, 'showMypage'])->name('user.bought');
-    Route::get('/mypage/selling', [UserController::class, 'showMypage'])->name('user.selling');
+    Route::get('/mypage', [UserController::class, 'showMypage'])->name('mypage.index');
+    //Route::get('/mypage/bought', [UserController::class, 'showMypage'])->name('user.bought');
+    //Route::get('/mypage/selling', [UserController::class, 'showMypage'])->name('user.selling');
 
-    Route::get('/mypage/profile', [UserController::class, 'edit'])->name('user.profile.edit');
-    Route::patch('/mypage/profile', [UserController::class, 'update'])->name('user.profile.update');
+    Route::get('/mypage/profile', [UserController::class, 'edit'])->name('profile.edit');
+    Route::patch('/mypage/profile', [UserController::class, 'update'])->name('profile.update');
 });

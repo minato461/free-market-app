@@ -83,8 +83,8 @@
                                     $postalCode = $profile->postal_code ?? 'XXX-XXXX';
                                     $fullAddress = $profile->address ?? '住所が設定されていません';
 
-                                    $shippingAddressValue = ($profile && $profile->postal_code && $profile->address) ?
-                                                            ($profile->postal_code . $profile->address) : '';
+                                    $dummyAddressForTest = '未設定(購入テスト用)';
+                                    $shippingAddressValue = ($profile && $profile->postal_code && $profile->address) ? ($profile->postal_code . $profile->address) : $dummyAddressForTest;
                                 @endphp
 
                                 <p>〒 {{ $postalCode }}</p>
