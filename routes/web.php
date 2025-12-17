@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\LikeCommentController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
@@ -46,6 +47,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Route::get('/mypage/bought', [UserController::class, 'showMypage'])->name('user.bought');
     //Route::get('/mypage/selling', [UserController::class, 'showMypage'])->name('user.selling');
 
-    Route::get('/mypage/profile', [UserController::class, 'edit'])->name('profile.edit');
-    Route::patch('/mypage/profile', [UserController::class, 'update'])->name('profile.update');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });

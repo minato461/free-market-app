@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Fortify\Features;
+use App\Providers\RouteServiceProvider;
 
 return [
 
@@ -74,6 +75,20 @@ return [
     */
 
     'home' => App\Providers\RouteServiceProvider::HOME,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fortify Redirects
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the redirects that Fortify should use when certain
+    | authentication actions are successful.
+    |
+    */
+
+    'redirects' => [
+        'register' => '/mypage/profile',
+    ],
 
     /*
     |--------------------------------------------------------------------------
