@@ -55,8 +55,13 @@ class Item extends Model
         return $this->hasOne(Purchase::class);
     }
 
-    public function getIsSoldAttribute()
+    public function isSold(): bool
     {
         return $this->purchase()->exists();
+    }
+
+    public function getIsSoldAttribute()
+    {
+        return $this->isSold();
     }
 }

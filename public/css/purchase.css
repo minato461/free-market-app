@@ -172,3 +172,38 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* --- タブレット・モバイル対応 (画面幅 850px 以下) --- */
+@media screen and (max-width: 850px) {
+    .purchase-content-wrapper {
+        flex-direction: column;
+        width: 95%;
+        gap: 30px;
+        padding-top: 20px;
+    }
+
+    .purchase-form-area {
+        max-width: 100%;
+    }
+
+    .form-select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .order-summary-area {
+        flex: none;
+        width: 100%;
+    }
+
+    .order-summary-box {
+        padding: 20px;
+    }
+
+    .purchase-title {
+        display: block;
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+}

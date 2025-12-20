@@ -37,7 +37,7 @@
         <main class="main purchase-main">
             <h2 class="purchase-title">商品購入画面</h2>
 
-            <form action="{{ route('purchase.process', $item->id) }}" method="POST">
+            <form action="{{ route('purchase.process', $item->id) }}" method="POST" id="purchase-form">
                 @csrf
                 <div class="purchase-content-wrapper">
                     <div class="purchase-form-area">
@@ -63,7 +63,7 @@
                             <div class="setting-content">
                                 <select id="payment_method" name="payment_method" class="form-select">
                                     <option value="credit_card" {{ old('payment_method', 'credit_card') == 'credit_card' ? 'selected' : '' }}>カード払い</option>
-                                    <option value="bank_transfer" {{ old('payment_method') == 'bank_transfer' ? 'selected' : '' }}>コンビニ払い</option>
+                                    <option value="konbini" {{ old('payment_method') == 'konbini' ? 'selected' : '' }}>コンビニ払い</option>
                                 </select>
                             </div>
                             @error('payment_method')
@@ -75,16 +75,16 @@
 
                         <div class="setting-section">
                             <h3 class="setting-title">配送先</h3>
-                            <a href="{{ route('address.edit') }}" class="address-change-link">変更する</a>
-
+                            <a href="{{ route('address.edit', ['item_id' => $item->id]) }}" class="address-change-link">変更する</a>
                             <div class="setting-content address-details">
                                 @php
-                                    $profile = $user->profile ?? null;
-                                    $postalCode = $profile->postal_code ?? 'XXX-XXXX';
-                                    $fullAddress = $profile->address ?? '住所が設定されていません';
+                                    $hasShippingAddress = $address && !empty($address->postal_code) && !empty($address->address);
+                                    $postalCode = $address->postal_code ?? ' XXX-XXXX';
+                                    $fullAddress = ($address && $address->address)
+                                        ? $address->address . ($address->building_name ? ' ' . $address->building_name : '')
+                                        : '住所が設定されていません';
 
-                                    $dummyAddressForTest = '未設定(購入テスト用)';
-                                    $shippingAddressValue = ($profile && $profile->postal_code && $profile->address) ? ($profile->postal_code . $profile->address) : $dummyAddressForTest;
+                                    $shippingAddressValue = $hasShippingAddress ? ($address->postal_code . $address->address) : '';
                                 @endphp
 
                                 <p>〒 {{ $postalCode }}</p>
@@ -92,7 +92,7 @@
 
                                 <input type="hidden" name="shipping_address" value="{{ $shippingAddressValue }}">
 
-                                @if (empty($shippingAddressValue))
+                                @if (!$hasShippingAddress)
                                     <p class="error-message">※購入確定前に「変更する」から配送先を設定してください。</p>
                                 @endif
                             </div>
@@ -112,11 +112,8 @@
 
                             <div class="summary-row">
                                 <p class="summary-label">支払い方法</p>
-                                <p class="summary-value payment-display">
-                                    @php
-                                        $selectedPayment = old('payment_method', 'credit_card');
-                                        echo $selectedPayment == 'bank_transfer' ? 'コンビニ払い' : 'カード払い';
-                                    @endphp
+                                <p class="summary-value payment-display" id="payment-display">
+                                    {{ old('payment_method', 'credit_card') == 'konbini' ? 'コンビニ払い' : 'カード払い' }}
                                 </p>
                             </div>
 
@@ -125,7 +122,7 @@
                                 <p class="summary-value total-value">¥ {{ number_format($item->price) }}</p>
                             </div>
 
-                            <button type="submit" class="purchase-button">購入する</button>
+                            <button type="submit" class="purchase-button" id="purchase-btn">購入する</button>
 
                         </div>
                     </div>
@@ -134,5 +131,18 @@
         </main>
         <footer class="footer"></footer>
     </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentSelect = document.getElementById('payment_method');
+            const paymentDisplay = document.getElementById('payment-display');
+
+            paymentSelect.addEventListener('change', function() {
+                const selectedText = paymentSelect.options[paymentSelect.selectedIndex].text;
+                paymentDisplay.textContent = selectedText;
+            });
+        });
+    </script>
 </body>
 </html>

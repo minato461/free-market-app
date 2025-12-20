@@ -14,7 +14,7 @@
         <header class="header">
             <div class="header__inner">
                 <h1 class="header__logo">
-                    <a href="/"><img src="{{ asset('image/logo.svg') }}" alt="COACHTECH"></a>
+                    <a href="{{ route('item.index') }}"><img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH"></a>
                 </h1>
                 <div class="header__search">
                     <input type="text" placeholder="なにをお探しですか?" class="search__input">
@@ -37,19 +37,19 @@
         <main class="main address-main">
             <h2 class="address-title">住所の変更</h2>
 
-            <form class="address-form" action="/address" method="POST">
+            <form class="address-form" action="{{ route('address.update', ['item_id' => $item->id]) }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="postcode" class="form-label">郵便番号</label>
-                    <input type="text" id="postcode" name="postcode" class="form-input" value="既存の値が入力されている">
+                    <label for="postal_code">郵便番号</label>
+                    <input type="text" id="postal_code" name="postal_code" class="form-input" value="{{ old('postal_code', $address->postal_code ?? '') }}">
                 </div>
                 <div class="form-group">
-                    <label for="address" class="form-label">住所</label>
-                    <input type="text" id="address" name="address" class="form-input" value="既存の値が入力されている">
+                    <label for="address">住所</label>
+                    <input type="text" id="address" name="address" class="form-input" value="{{ old('address', $address->address ?? '') }}">
                 </div>
                 <div class="form-group">
-                    <label for="building" class="form-label">建物名</label>
-                    <input type="text" id="building" name="building" class="form-input" value="既存の値が入力されている">
+                    <label for="building_name">建物名</label>
+                    <input type="text" id="building_name" name="building_name" class="form-input" value="{{ old('building_name', $address->building_name ?? '') }}">
                 </div>
                 <button type="submit" class="update-button">更新する</button>
             </form>

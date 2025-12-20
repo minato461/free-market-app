@@ -39,9 +39,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'process'])->name('purchase.process');
+    Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
 
-    Route::get('/mypage/address', [ShippingAddressController::class, 'edit'])->name('address.edit');
-    Route::patch('/mypage/address', [ShippingAddressController::class, 'update'])->name('address.update');
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])->name('address.edit');
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('address.update');
 
     Route::get('/mypage', [UserController::class, 'showMypage'])->name('mypage.index');
     //Route::get('/mypage/bought', [UserController::class, 'showMypage'])->name('user.bought');

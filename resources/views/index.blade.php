@@ -77,7 +77,7 @@
                         <a href="/item/{{ $item->id }}" class="item-card">
                             <div class="item-card__image-wrapper">
                                 <img src="{{ asset('storage/image/' . $item->image_path) }}" alt="{{ $item->name }}" class="item-card__image">
-                                @if ($item->is_sold)
+                                @if ($item->isSold())
                                     <div class="item-card__sold-badge">Sold</div>
                                 @endif
                             </div>
