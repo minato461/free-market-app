@@ -173,3 +173,69 @@
     font-size: 0.9em;
     color: #333;
 }
+
+/* --- タブレット・モバイル対応 (画面幅 850px 以下) --- */
+@media screen and (max-width: 850px) {
+    .mypage-main {
+        width: 100%;
+        padding-top: 80px;
+        min-height: auto;
+    }
+
+    .profile-info-area {
+        flex-direction: column;
+        text-align: center;
+        padding-left: 0;
+        width: 95%;
+        margin-bottom: 30px;
+    }
+
+    .profile-image-wrapper {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-details {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .user-name {
+        font-size: 22px;
+    }
+
+    .profile-edit-button {
+        margin-left: 0;
+        width: 100%;
+        max-width: 200px;
+        text-align: center;
+    }
+
+    .mypage-nav {
+        width: 100%;
+        padding-left: 0;
+        display: flex;
+        justify-content: center;
+        height: auto;
+    }
+
+    .mypage-nav .tab-list {
+        gap: 20px;
+    }
+
+    .tab-content {
+        padding: 20px 15px;
+    }
+
+    .mypage-item-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .item-card__image-wrapper {
+        height: 200px;
+    }
+}
