@@ -7,7 +7,6 @@ use App\Models\PersonalAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -41,7 +40,7 @@ class ProfileController extends Controller
         $address = $user->personalAddress ?? new PersonalAddress(['user_id' => $user->id]);
 
         if ($request->hasFile('image_path')) {
-            if ($address->image_path && $address->image_path !== 'default_profile.png') {
+            if ($address->image_path && !in_array($address->image_path, ['default_profile.png', ''])) {
                 Storage::disk('public')->delete('image/' . $address->image_path);
             }
             $path = $request->file('image_path')->store('image', 'public');
@@ -51,7 +50,6 @@ class ProfileController extends Controller
         $address->postal_code = str_replace('-', '', $validatedData['postal_code'] ?? '');
         $address->address = $validatedData['address'];
         $address->building_name = $validatedData['building_name'] ?? null;
-
         $address->save();
 
         return redirect()->route('mypage.index')->with('success', 'プロフィールを更新しました。');

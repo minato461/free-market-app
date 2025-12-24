@@ -22,13 +22,13 @@
                 <nav class="header__nav">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <form method="POST" action="/logout" id="logout-form">
+                            <form method="POST" action="{{ route('logout') }}" id="logout-form">
                                 @csrf
                                 <button type="submit" class="logout__button nav__link">ログアウト</button>
                             </form>
                         </li>
-                        <li class="nav__item"><a href="/mypage">マイページ</a></li>
-                        <li class="nav__item"><a href="/sell" class="sell__button">出品</a></li>
+                        <li class="nav__item"><a href="{{ route('mypage.index') }}">マイページ</a></li>
+                        <li class="nav__item"><a href="{{ route('item.create') }}" class="sell__button">出品</a></li>
                     </ul>
                 </nav>
             </div>
@@ -37,33 +37,46 @@
         <main class="main profile-main">
             <h2 class="profile-title">プロフィール設定</h2>
 
-            <form class="profile-form" action="/profile" method="POST" enctype="multipart/form-data">
+            <form class="profile-form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
+
                 <div class="profile-image-upload">
                     <div class="profile-image-wrapper">
-                        <div class="profile-image"></div>
+                        <div class="profile-image" id="image_preview">
+                            @if($address->image_path)
+                                <img src="{{ asset('storage/image/' . $address->image_path) }}" alt="プロフィール画像" id="preview_img">
+                            @endif
+                        </div>
                     </div>
                     <label for="image_upload" class="image-select-button">画像を選択する</label>
-                    <input type="file" id="image_upload" name="profile_image" style="display: none;">
+                    {{-- nameはコントローラーのバリデーションに合わせて image_path --}}
+                    <input type="file" id="image_upload" name="image_path" style="display: none;" accept="image/*">
+                    @error('image_path') <p class="error-message">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="name" class="form-label">ユーザー名</label>
-                    <input type="text" id="name" name="name" class="form-input" value="既存の値が入力されている">
+                    <input type="text" id="name" name="name" class="form-input" value="{{ old('name', $user->name) }}">
+                    @error('name') <p class="error-message">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="postcode" class="form-label">郵便番号</label>
-                    <input type="text" id="postcode" name="postcode" class="form-input" value="既存の値が入力されている">
+                    <label for="postal_code" class="form-label">郵便番号</label>
+                    <input type="text" id="postal_code" name="postal_code" class="form-input" value="{{ old('postal_code', $address->postal_code) }}">
+                    @error('postal_code') <p class="error-message">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="address" class="form-label">住所</label>
-                    <input type="text" id="address" name="address" class="form-input" value="既存の値が入力されている">
+                    <input type="text" id="address" name="address" class="form-input" value="{{ old('address', $address->address) }}">
+                    @error('address') <p class="error-message">{{ $message }}</p> @enderror
                 </div>
+
                 <div class="form-group">
-                    <label for="building" class="form-label">建物名</label>
-                    <input type="text" id="building" name="building" class="form-input" value="既存の値が入力されている">
+                    <label for="building_name" class="form-label">建物名</label>
+                    <input type="text" id="building_name" name="building_name" class="form-input" value="{{ old('building_name', $address->building_name) }}">
+                    @error('building_name') <p class="error-message">{{ $message }}</p> @enderror
                 </div>
 
                 <button type="submit" class="update-button">更新する</button>
@@ -73,5 +86,19 @@
         <footer class="footer"></footer>
     </div>
 
+    <script>
+        document.getElementById('image_upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            const preview = document.getElementById('image_preview');
+
+            reader.onload = function (event) {
+                preview.innerHTML = `<img src="${event.target.result}" alt="プレビュー" id="preview_img">`;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
 </body>
 </html>

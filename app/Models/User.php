@@ -69,7 +69,7 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Purchase::class);
     }
 
-    public function address()
+    public function personalAddress()
     {
         return $this->hasOne(\App\Models\PersonalAddress::class);
     }
