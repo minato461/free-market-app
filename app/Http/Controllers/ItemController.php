@@ -16,7 +16,7 @@ class ItemController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        $query = Item::with('likes', 'purchase', 'brand', 'category')
+        $query = Item::with(['likes', 'purchase', 'brand', 'category'])
             ->orderBy('created_at', 'desc');
 
         if ($keyword) {
@@ -28,7 +28,7 @@ class ItemController extends Controller
             $query->where('user_id', '!=', $userId);
         }
 
-        $items = $query->take(10)->get();
+        $items = $query->get();
 
         return view('index', compact('items'));
     }
@@ -45,17 +45,16 @@ class ItemController extends Controller
         $likedItemIds = Like::where('user_id', $userId)->pluck('item_id');
 
         if ($likedItemIds->isEmpty()) {
-            $query = Item::whereRaw('1 = 0');
+            $items = collect();
         } else {
-            $query = Item::with('purchase', 'brand', 'category')
+            $query = Item::with(['purchase', 'brand', 'category'])
                 ->whereIn('id', $likedItemIds);
-        }
 
-        if ($keyword) {
-            $query->where('name', 'LIKE', "%{$keyword}%");
+            if ($keyword) {
+                $query->where('name', 'LIKE', "%{$keyword}%");
+            }
+            $items = $query->orderBy('created_at', 'desc')->get();
         }
-
-        $items = $query->orderBy('created_at', 'desc')->get();
 
         return view('index', compact('items'));
     }
@@ -79,20 +78,20 @@ class ItemController extends Controller
 
     public function toggleLike(Request $request, Item $item)
     {
-        $user = Auth::user();
-        $userId = $user->id;
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $userId = Auth::id();
         $itemId = $item->id;
 
         DB::transaction(function () use ($userId, $itemId) {
-
             $like = Like::where('user_id', $userId)
                         ->where('item_id', $itemId)
                         ->first();
 
             if ($like) {
-                Like::where('user_id', $userId)
-                    ->where('item_id', $itemId)
-                    ->delete();
+                $like->delete();
             } else {
                 Like::create([
                     'user_id' => $userId,
@@ -101,7 +100,7 @@ class ItemController extends Controller
             }
         });
 
-        return redirect()->route('item.show', $item);
+        return redirect()->back();
     }
 
     public function create()
@@ -116,7 +115,8 @@ class ItemController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'item_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'required|exists:categories,id',
+            'category_ids' => 'required|array',
+            'category_ids.*' => 'exists:categories,id',
             'condition' => 'required|string',
             'price' => 'required|integer|min:300',
             'brand_name' => 'nullable|string|max:255',
@@ -124,7 +124,7 @@ class ItemController extends Controller
             'name.required' => '商品名を入力してください',
             'description.required' => '商品の説明を入力してください',
             'item_image.required' => '商品画像を選択してください',
-            'category_id.required' => 'カテゴリーを選択してください',
+            'category_ids.required' => 'カテゴリーを選択してください',
             'condition.required' => '商品の状態を選択してください',
             'price.required' => '販売価格を入力してください',
             'price.integer' => '販売価格は数値で入力してください',
@@ -132,19 +132,22 @@ class ItemController extends Controller
         ]);
 
         $image = $request->file('item_image');
-        $path = $image->store('items', 'public');
+        $path = $image->store('image', 'public');
 
-        Item::create([
-            'user_id' => Auth::id(),
-            'category_id' => $request->category_id,
-            'name' => $request->name,
-            'brand_name' => $request->brand_name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image_path' => basename($path),
-            'condition' => $request->condition,
-        ]);
+        DB::transaction(function () use ($request, $path) {
+            $item = Item::create([
+                'user_id' => Auth::id(),
+                'name' => $request->name,
+                'brand_name' => $request->brand_name,
+                'price' => $request->price,
+                'description' => $request->description,
+                'image_path' => basename($path),
+                'condition' => $request->condition,
+            ]);
 
-        return redirect()->route('item.index')->with('success', '商品を出品しました');
+            $item->category()->sync($request->category_ids);
+        });
+
+        return redirect()->route('mypage.index')->with('success', '商品を出品しました');
     }
 }

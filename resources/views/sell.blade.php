@@ -45,7 +45,7 @@
                         <input type="file" id="item_image_upload" name="item_image" style="display: none;" accept="image/*">
                         <div id="preview-container"></div>
                     </div>
-                    @error('item_image') <p class="error-text">{{ $message }}</p> @enderror
+                    @error('item_image') <p style="color: red; font-size: 14px; margin-top: 5px;">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="sell-divider"></div>
@@ -88,7 +88,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        @error('category_ids') <p class="error-text">{{ $message }}</p> @enderror
+                        @error('category_ids') <p style="color: red; font-size: 14px; margin-top: 5px;">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="form-group">
@@ -100,7 +100,7 @@
                             <option value="やや傷や汚れあり" {{ old('condition') == 'やや傷や汚れあり' ? 'selected' : '' }}>やや傷や汚れあり</option>
                             <option value="状態が悪い" {{ old('condition') == '状態が悪い' ? 'selected' : '' }}>状態が悪い</option>
                         </select>
-                        @error('condition') <p class="error-text">{{ $message }}</p> @enderror
+                        @error('condition') <p style="color: red; font-size: 14px; margin-top: 5px;">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <label for="name" class="form-label">商品名</label>
                         <input type="text" id="name" name="name" class="form-input" value="{{ old('name') }}">
-                        @error('name') <p class="error-text">{{ $message }}</p> @enderror
+                        @error('name') <p style="color: red; font-size: 14px; margin-top: 5px;">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="form-group">
@@ -122,7 +122,7 @@
                     <div class="form-group">
                         <label for="description" class="form-label">商品の説明</label>
                         <textarea id="description" name="description" class="form-textarea">{{ old('description') }}</textarea>
-                        @error('description') <p class="error-text">{{ $message }}</p> @enderror
+                        @error('description') <p style="color: red; font-size: 14px; margin-top: 5px;">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
@@ -133,7 +133,7 @@
                     <div class="form-group price-group">
                         <input type="number" id="price" name="price" class="form-input price-input" placeholder="¥" value="{{ old('price') }}">
                     </div>
-                    @error('price') <p class="error-text">{{ $message }}</p> @enderror
+                    @error('price') <p style="color: red; font-size: 14px; margin-top: 5px;">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="sell-divider"></div>

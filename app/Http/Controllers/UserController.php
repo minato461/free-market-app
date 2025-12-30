@@ -14,19 +14,25 @@ class UserController extends Controller
     public function showMypage()
     {
         $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
 
+        // プロフィール画像や住所情報の取得
+        $address = $user->personalAddress;
+
+        // 自分が作成した商品（Bladeで使う変数名: $listedItems）
         $listedItems = Item::where('user_id', $user->id)
-                        ->with('purchase')
-                        ->get();
+            ->with('purchase')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        $purchasedItems = Purchase::where('user_id', $user->id)
-                                ->with('item')
-                                ->get()
-                                ->pluck('item');
+        // 自分が購入した商品（Bladeで使う変数名: $purchasedItems）
+        $purchasedItems = Item::whereHas('purchase', function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->with('purchase')->get();
 
-        $address = $user->personalAddress ?? new PersonalAddress();
-
-        return view('mypage', compact('user', 'listedItems', 'purchasedItems', 'address'));
+        return view('mypage', compact('user', 'address', 'listedItems', 'purchasedItems'));
     }
 
     public function editProfile()
