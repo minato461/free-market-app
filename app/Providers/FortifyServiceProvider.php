@@ -37,6 +37,12 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($email . $request->ip());
         });
 
+        // メール認証誘導画面を表示する設定
+        Fortify::verifyEmailView(function () {
+            return view('verify');
+        });
+
+        // 登録・ログイン画面の設定
         Fortify::registerView(function () {
             return view('register');
         });
