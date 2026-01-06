@@ -24,9 +24,11 @@
                 メール認証を完了してください。
             </h2>
 
-                <div class="success-message">
+            <div class="verify-link-container">
+                <a href="http://localhost:8025" target="_blank" class="verify-button">
                     認証はこちらから
-                </div>
+                </a>
+            </div>
 
             {{-- 認証メールの再送フォーム --}}
             <form method="POST" action="{{ route('verification.send') }}">
