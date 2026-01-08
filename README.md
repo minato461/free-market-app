@@ -2,35 +2,35 @@
 
 ## 💻 環境構築手順
 
-### 1. 必須ツールの確認とインストール
+## 1. 必須ツールの確認とインストール
 
 **Homebrew**、**PHP**、**Composer**、**MySQL** がインストールされていることを確認してください。
 
 
-# Composer のインストールを確認 (バージョンが表示されればOK)
+### Composer のインストールを確認 (バージョンが表示されればOK)
 ```bash
 composer --version
 ```
 
-# Homebrew で PHP と MySQL をインストール
+### Homebrew で PHP と MySQL をインストール
 ```bash
 brew install php composer mysql
 ```
 
-### 2. リポジトリのクローンと移動
+## 2. リポジトリのクローンと移動
 ```bash
 git clone [git@github.com:minato461/free-market-app.git]
 cd free-market-app
 ```
 
-### 3. 環境変数の設定
+## 3. 環境変数の設定
 ```bash
 cp .env.example .env
 ```
 
 ```.env``` ファイル内に以下の項目が設定されていることを確認してください。
 
-# DB接続情報
+### DB接続情報
 ```bash
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -40,7 +40,7 @@ DB_USERNAME=free_market_user
 DB_PASSWORD=password
 ```
 
-# メール設定(Mailhog)
+### メール設定(Mailhog)
 ```
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
@@ -51,7 +51,7 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="no-reply@test.com"
 ```
 
-# Stripe決済設定
+### Stripe決済設定
 Stripeのダッシュボードから取得したテスト用キーを設定してください。
 
 ```
@@ -59,29 +59,29 @@ STRIPE_PUBLIC_KEY=pk_test_...
 STRIPE_SECRET_KEY=sk_test_...
 ```
 
-### 4. Dockerコンテナの起動
+## 4. Dockerコンテナの起動
 ```bash
 docker compose up -d
 ```
 
-### 5. 依存パッケージのインストールとマイグレーションの実行
+## 5. 依存パッケージのインストールとマイグレーションの実行
 
-# Appコンテナに入る
+### Appコンテナに入る
 ```bash
 docker compose exec app bash
 ```
 
-# 依存パッケージのインストール
+### 依存パッケージのインストール
 ```bash
 composer install
 ```
 
-# データベーステーブルの作成 (マイグレーション)
+### データベーステーブルの作成 (マイグレーション)
 ```bash
 php artisan migrate:fresh
 ```
 
-## テストの実行方法
+### テストの実行方法
 本プロジェクトでは PHPUnit を使用して自動テストを行っています。
 
 ### 事前準備
