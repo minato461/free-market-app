@@ -27,10 +27,36 @@ cd free-market-app
 ```bash
 cp .env.example .env
 ```
-# .env ファイル内のDB接続情報が以下のように設定されていることを確認してください。
+
+```.env``` ファイル内に以下の項目が設定されていることを確認してください。
+
+# DB接続情報
 ```bash
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=free_market_db
 DB_USERNAME=free_market_user
 DB_PASSWORD=password
+```
+
+# メール設定(Mailhog)
+```
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="no-reply@test.com"
+```
+
+# Stripe決済設定
+Stripeのダッシュボードから取得したテスト用キーを設定してください。
+
+```
+STRIPE_PUBLIC_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
 ```
 
 ### 4. Dockerコンテナの起動
@@ -55,6 +81,18 @@ composer install
 php artisan migrate:fresh
 ```
 
+## テストの実行方法
+本プロジェクトでは PHPUnit を使用して自動テストを行っています。
+
+### 事前準備
+テスト用のデータベース（SQLite推奨）を準備します。
+`.env.testing` ファイルを作成するか、 `phpunit.xml` で設定してください。
+
+### テストの全件実行
+```bash
+php artisan test
+```
+
 ## 🛠️ 使用技術 (Technology Stack)
 
 | 区分 | 技術名 | バージョン (目安) | 備考 |
@@ -68,6 +106,9 @@ php artisan migrate:fresh
 
 ## ER図
 ![フリマアプリ ER図](模擬案件_フリマアプリ.png)
+
+## ストレージ構成
+商品画像は ```storage/app/public/image``` に保存されます。ブラウザからアクセスするために ```public/storage``` へのシンボリックリンクが必要です。
 
 ## URL
 - 開発環境：http://localhost/
