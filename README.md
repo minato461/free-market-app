@@ -64,7 +64,7 @@ STRIPE_SECRET_KEY=sk_test_...
 docker compose up -d
 ```
 
-## 5. 依存パッケージのインストールとマイグレーションの実行
+## 5. アプリケーションの初期化
 
 ### Appコンテナに入る
 ```bash
@@ -76,9 +76,19 @@ docker compose exec app bash
 composer install
 ```
 
-### データベーステーブルの作成 (マイグレーション)
+### アプリケーションキーの生成
 ```bash
-php artisan migrate:fresh
+php artisan key:generate
+```
+
+### データベースの構築とシーディング（ダミーデータの投入）
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 画像表示用のシンボリックリンク作成
+```bash
+php artisan storage:link
 ```
 
 ### テストの実行方法
@@ -108,8 +118,10 @@ php artisan test
 ![フリマアプリ ER図](模擬案件_フリマアプリ.png)
 
 ## ストレージ構成
+本プロジェクトのストレージ構成は、「環境構築」と「ソースコードの管理」が一体となった構想になっております。
 商品画像は ```storage/app/public/image``` に保存されます。ブラウザからアクセスするために ```public/storage``` へのシンボリックリンクが必要です。
 
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
+- Mailhog :：http://localhost:8025/
