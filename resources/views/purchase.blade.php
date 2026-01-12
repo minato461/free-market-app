@@ -110,16 +110,13 @@
                                 <p class="summary-value">¥ {{ number_format($item->price) }}</p>
                             </div>
 
+                            <div class="summary-divider"></div>
+
                             <div class="summary-row">
                                 <p class="summary-label">支払い方法</p>
                                 <p class="summary-value payment-display" id="payment-display">
                                     {{ old('payment_method', 'credit_card') == 'konbini' ? 'コンビニ払い' : 'カード払い' }}
                                 </p>
-                            </div>
-
-                            <div class="summary-row total-amount">
-                                <p class="summary-label total-label">支払い金額</p>
-                                <p class="summary-value total-value">¥ {{ number_format($item->price) }}</p>
                             </div>
 
                             <button type="submit" class="purchase-button" id="purchase-btn">購入する</button>

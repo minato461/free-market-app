@@ -1,15 +1,18 @@
 body {
     min-height: 1050px;
+    margin: 0;
 }
 
 .page-container {
-    width: 1515px;
+    width: 100%;
+    max-width: 1515px;
     margin: 0 auto;
     position: relative;
 }
 
 .header {
-    width: 1515px;
+    width: 100%;
+    max-width: 1515px;
     height: 82px;
     background-color: black;
     color: white;
@@ -17,7 +20,7 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,4 +37,14 @@ body {
 
 .header__logo img {
     height: 24px;
+}
+
+/* タブレット対応 (850px以下) */
+@media screen and (max-width: 850px) {
+    .header {
+        padding: 0 20px;
+    }
+    .header__logo img {
+        height: 20px;
+    }
 }

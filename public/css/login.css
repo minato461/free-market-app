@@ -90,43 +90,33 @@
 
 .error-message {
     color: #e57373;
-
     font-size: 14px;
-
     margin-top: 5px;
-    margin-bottom: 0;
 }
 
-/* --- タブレット・モバイル対応 (画面幅 850px 以下) --- */
+/* --- タブレット対応 --- */
 @media (max-width: 850px) {
-
-    .login-main {
-        min-height: 100vh;
-    }
-
     .login-container {
         position: static;
         width: 90%;
-        max-width: 450px;
+        max-width: 500px;
         height: auto;
-        top: 0;
-        left: 0;
         transform: none;
-        margin: 50px auto;
+        margin: 100px auto 20px;
         padding: 30px;
     }
 
     .login-button {
         position: static;
         width: 100%;
-        margin-top: 20px;
         transform: none;
+        margin-top: 20px;
     }
 
     .register-link-area {
         position: static;
         width: 100%;
-        margin-top: 30px;
         transform: none;
+        margin-top: 20px;
     }
 }

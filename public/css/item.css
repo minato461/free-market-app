@@ -52,7 +52,7 @@
     flex-direction: column;
     gap: 30px;
     width: 100%;
-    max-width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
@@ -87,61 +87,24 @@
 
 
 /* --------------------------------------- */
-/* タブレット対応 (768px以上) */
+/* タブレット・PC対応 */
 /* --------------------------------------- */
 @media (min-width: 768px) {
     .item-main {
-        padding: 100px 2rem 2rem 2rem;
+        padding: 120px 2rem 2rem 2rem;
     }
 
     .item-detail-wrapper {
         flex-direction: row;
-        gap: 30px;
-        max-width: 90%;
+        gap: 50px;
     }
 
     .item-image-area {
         flex: 0 0 45%;
     }
 
-    .item-image-box {
-        width: 100%;
-        height: auto;
-    }
-
-    .item-content-area {
-        flex: 1 1 55%;
-        max-width: 55%;
-    }
-}
-
-
-/* --------------------------------------- */
-/* PC画面対応 (1400px以上) */
-/* --------------------------------------- */
-@media (min-width: 1400px) {
-    .item-main {
-        padding: 100px 1rem 2rem 1rem;
-    }
-
-    .item-detail-wrapper {
-        max-width: 1200px;
-        gap: 50px;
-    }
-
-    .item-image-area {
-        flex: 0 0 500px;
-        max-width: 500px;
-    }
-
-    .item-image-box {
-        width: 500px;
-        height: 500px;
-    }
-
     .item-content-area {
         flex: 1;
-        max-width: 600px;
     }
 }
 

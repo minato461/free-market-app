@@ -1,6 +1,3 @@
-/* --------------------------------------- */
-/* ヘッダー共通部分 (purchase/itemと共通) */
-/* --------------------------------------- */
 .header__search {
     flex-grow: 1;
     margin: 0 50px;
@@ -41,13 +38,11 @@
     font-weight: bold;
 }
 
-/* --------------------------------------- */
-/* mypage既存のスタイル */
-/* --------------------------------------- */
 .mypage-main {
     padding-top: 100px;
     position: relative;
-    width: 1515px;
+    width: 100%;
+    max-width: 1515px;
     margin: 0 auto;
     min-height: 800px;
 }
@@ -55,7 +50,7 @@
 .profile-info-area {
     display: flex;
     align-items: center;
-    width: 80%;
+    width: 90%;
     margin: 0 auto 50px;
     padding-left: 69px;
     box-sizing: border-box;
@@ -99,7 +94,8 @@
     border-bottom: 1px solid #ccc;
     padding-left: 170px;
     box-sizing: border-box;
-    width: 1515px;
+    width: 100%;
+    max-width: 1515px;
     height: 47px;
     margin-top: 20px;
 }
@@ -119,22 +115,9 @@
     color: red;
 }
 
-/* ==================================
- * マイページ 商品一覧
- * ================================== */
-
-/* 商品一覧のタブコンテンツ全体 */
 .tab-content {
     padding: 20px 69px;
     box-sizing: border-box;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.tab-content.hidden {
-    display: none !important;
 }
 
 .mypage-item-list-container {
@@ -146,7 +129,6 @@
 
 .mypage-item-list {
     display: grid;
-    /* 4列表示 */
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     width: 100%;
@@ -168,33 +150,18 @@
     display: block;
 }
 
-.item-card__name {
-    margin-top: 5px;
-    font-size: 0.9em;
-    color: #333;
-}
-
-/* --- タブレット・モバイル対応 (画面幅 850px 以下) --- */
+/* --- タブレット対応 --- */
 @media screen and (max-width: 850px) {
-    .mypage-main {
-        width: 100%;
-        padding-top: 80px;
-        min-height: auto;
-    }
-
     .profile-info-area {
         flex-direction: column;
         text-align: center;
         padding-left: 0;
-        width: 95%;
         margin-bottom: 30px;
     }
 
     .profile-image-wrapper {
         margin-right: 0;
         margin-bottom: 15px;
-        width: 80px;
-        height: 80px;
     }
 
     .profile-details {
@@ -202,40 +169,24 @@
         gap: 15px;
     }
 
-    .user-name {
-        font-size: 22px;
-    }
-
     .profile-edit-button {
         margin-left: 0;
-        width: 100%;
-        max-width: 200px;
-        text-align: center;
     }
 
     .mypage-nav {
-        width: 100%;
-        padding-left: 0;
-        display: flex;
-        justify-content: center;
-        height: auto;
-    }
-
-    .mypage-nav .tab-list {
-        gap: 20px;
+        padding-left: 20px;
     }
 
     .tab-content {
-        padding: 20px 15px;
+        padding: 20px;
     }
 
     .mypage-item-list {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
-        margin-top: 30px;
     }
 
     .item-card__image-wrapper {
-        height: 200px;
+        height: 220px;
     }
 }

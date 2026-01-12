@@ -40,7 +40,8 @@
 
 .main-nav {
     position: absolute;
-    width: 1515px;
+    width: 100%;
+    max-width: 1515px;
     height: 47px;
     top: 127px;
     left: 50%;
@@ -83,7 +84,8 @@
 .main {
     padding-top: 180px;
     position: relative;
-    width: 1515px;
+    width: 100%;
+    max-width: 1515px;
     margin: 0 auto;
     min-height: 800px;
 }
@@ -176,55 +178,37 @@
 }
 
 /* -------------------------------------------------------------------- */
-/* スマホ対応 (画面幅が 767px 以下の場合に適用) */
+/* タブレット・スマホ対応 */
 /* -------------------------------------------------------------------- */
-@media (max-width: 767px) {
-    .header {
-        padding: 10px 0;
-    }
-    .header__inner {
-        padding: 0 10px;
-    }
-
-    .header__logo img {
-        height: 30px;
-    }
-
-    .header__nav .nav__list {
-        gap: 10px;
-    }
-    .sell__button {
-        padding: 6px 10px;
-        font-size: 0.9rem;
+@media (max-width: 850px) {
+    .header__search {
+        margin: 0 20px;
     }
 
     .main {
-        padding-top: 20px;
-        padding: 20px 10px 0 10px;
+        padding-top: 150px;
     }
 
     .main-nav {
-        top: auto;
-        padding-left: 10px;
-        height: auto;
-        margin-bottom: 10px;
+        padding-left: 20px;
+        top: 100px;
     }
 
-    .tab-list {
-        gap: 20px;
+    .item-list-container {
+        padding: 0 20px;
     }
 
     .item-list {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-top: 20px;
+        gap: 15px;
     }
 
     .item-card__image-wrapper {
-        height: 180px;
+        height: 220px;
     }
 
-    .item-card__sold-badge {
-        font-size: 1.2rem;
+    .alert-success {
+        width: 90%;
+        top: 130px;
     }
 }

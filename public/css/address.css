@@ -40,6 +40,7 @@
 
 .form-group {
     width: 680px;
+    max-width: 100%;
     margin: 0 auto 30px;
     text-align: left;
 }
@@ -71,12 +72,12 @@
 .address-title {
     font-size: 24px;
     margin-bottom: 50px;
-    text-align: center;
     font-weight: bold;
 }
 
 .address-form {
     width: 780px;
+    max-width: 95%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -89,6 +90,7 @@
 
 .update-button {
     width: 680px;
+    max-width: 100%;
     height: 65.25px;
     margin-top: 50px;
     background-color: #e57373;
@@ -98,5 +100,10 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    box-sizing: border-box;
+}
+
+@media (max-width: 850px) {
+    .address-form {
+        padding: 30px 15px;
+    }
 }
