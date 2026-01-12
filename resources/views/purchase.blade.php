@@ -118,10 +118,8 @@
                                     {{ old('payment_method', 'credit_card') == 'konbini' ? 'コンビニ払い' : 'カード払い' }}
                                 </p>
                             </div>
-
-                            <button type="submit" class="purchase-button" id="purchase-btn">購入する</button>
-
                         </div>
+                        <button type="submit" class="purchase-button" id="purchase-btn">購入する</button>
                     </div>
                 </div>
             </form>
