@@ -50,16 +50,26 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * 購入情報とのリレーション
+     */
     public function purchase()
     {
         return $this->hasOne(Purchase::class);
     }
 
+    /**
+     * 売却済みかどうかを判定するメソッド
+     * 購入データ（purchasesテーブル）が存在すればtrueを返します。
+     */
     public function isSold(): bool
     {
         return $this->purchase()->exists();
     }
 
+    /**
+     * アクセサ定義（$item->is_sold で呼び出し可能）
+     */
     public function getIsSoldAttribute()
     {
         return $this->isSold();
