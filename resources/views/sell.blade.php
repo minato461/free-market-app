@@ -18,6 +18,9 @@
                         <img src="{{ asset('storage/image/logo.svg') }}" alt="COACHTECH">
                     </a>
                 </h1>
+                <div class="header__search">
+                    <input type="text" placeholder="なにをお探しですか?" class="search__input">
+                </div>
                 <nav class="header__nav">
                     <ul class="nav__list">
                         <li class="nav__item">
