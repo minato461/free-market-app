@@ -21,11 +21,11 @@ class PurchaseController extends Controller
         if ($sessionAddress) {
             $address = (object)$sessionAddress;
         } else {
-            $profile = $user->profile;
+            $pa = $user->personalAddress;
             $address = (object)[
-                'postal_code' => $profile->postal_code ?? '',
-                'address' => $profile->address ?? '',
-                'building_name' => $profile->building_name ?? '',
+                'postal_code' => $pa->postal_code ?? '',
+                'address' => $pa->address ?? '',
+                'building_name' => $pa->building_name ?? '',
             ];
         }
 
@@ -59,11 +59,8 @@ class PurchaseController extends Controller
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
-                // 決済が成功した時の戻り先（web.phpで定義するルート）
                 'success_url' => route('purchase.success', ['item_id' => $item->id]),
-                // 決済をキャンセルした時の戻り先
                 'cancel_url' => route('purchase.show', ['item_id' => $item->id]),
-                // コンビニ払いの場合の有効期限設定（例：3日）
                 'payment_method_options' => [
                     'konbini' => [
                         'expires_after_days' => 3,
@@ -71,7 +68,6 @@ class PurchaseController extends Controller
                 ],
             ]);
 
-            // ここでStripeの決済ページへユーザーを飛ばします
             return redirect($session->url, 303);
 
         } catch (\Exception $e) {
@@ -81,12 +77,24 @@ class PurchaseController extends Controller
 
     public function success(Request $request, $item_id)
     {
+        $user = Auth::user();
+
+        $sessionAddress = session("shipping_address_{$item_id}");
+        if ($sessionAddress) {
+            $shippingAddress = ($sessionAddress['postal_code'] ?? '') . ' ' . ($sessionAddress['address'] ?? '') . ' ' . ($sessionAddress['building_name'] ?? '');
+        } else {
+            $pa = $user->personalAddress;
+            $shippingAddress = ($pa->postal_code ?? '') . ' ' . ($pa->address ?? '') . ' ' . ($pa->building_name ?? '');
+        }
+
         Purchase::create([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'item_id' => $item_id,
             'payment_method' => 'stripe',
-            'shipping_address' => 'プロフィール住所',
+            'shipping_address' => $shippingAddress,
         ]);
+
+        session()->forget("shipping_address_{$item_id}");
 
         return redirect()->route('item.index')->with('success', '購入が完了しました！');
     }
@@ -95,11 +103,13 @@ class PurchaseController extends Controller
     {
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
+
         $currentAddress = session("shipping_address_{$item_id}") ?? [
-            'postal_code' => $user->profile->postal_code ?? '',
-            'address' => $user->profile->address ?? '',
-            'building_name' => $user->profile->building_name ?? '',
+            'postal_code' => $user->personalAddress->postal_code ?? '',
+            'address' => $user->personalAddress->address ?? '',
+            'building_name' => $user->personalAddress->building_name ?? '',
         ];
+
         $address = (object)$currentAddress;
         return view('address', compact('item', 'address'));
     }
@@ -111,7 +121,9 @@ class PurchaseController extends Controller
             'address' => 'required|string|max:255',
             'building_name' => 'nullable|string|max:255',
         ]);
+
         session(["shipping_address_{$item_id}" => $request->only(['postal_code', 'address', 'building_name'])]);
+
         return redirect()->route('purchase.show', ['item_id' => $item_id]);
     }
 }
