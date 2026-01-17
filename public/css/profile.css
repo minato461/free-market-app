@@ -110,6 +110,16 @@
     flex-shrink: 0;
 }
 
+.image-select-button{
+    padding: 10px 20px;
+    border: 1px solid #e57373;
+    color: #e57373;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 50px;
+}
+
 .update-button {
     width: 680px;
     max-width: 100%;
