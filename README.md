@@ -4,22 +4,18 @@
 
 ## 1. 必須ツールの確認とインストール
 
-**Homebrew**、**PHP**、**Composer**、**MySQL** がインストールされていることを確認してください。
+以下がインストールされていることを確認してください。
 
+- Docker
+- Docker Compose
+- Git
 
-### Composer のインストールを確認 (バージョンが表示されればOK)
-```bash
-composer --version
-```
+※ PHP / MySQL / Composer は Docker コンテナ内で利用します。
 
-### Homebrew で PHP と MySQL をインストール
-```bash
-brew install php composer mysql
-```
 
 ## 2. リポジトリのクローンと移動
 ```bash
-git clone [git@github.com:minato461/free-market-app.git]
+git clone git@github.com:minato461/free-market-app.git
 cd free-market-app
 ```
 
@@ -33,7 +29,7 @@ cp .env.example .env
 ### DB接続情報
 ```bash
 DB_CONNECTION=mysql
-DB_HOST=mysql
+DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=free_market_db
 DB_USERNAME=free_market_user
@@ -55,8 +51,8 @@ MAIL_FROM_ADDRESS="no-reply@test.com"
 Stripeのダッシュボードから取得したテスト用キーを設定してください。
 
 ```
-STRIPE_PUBLIC_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...
+STRIPE_PUBLIC=pk_test_...
+STRIPE_SECRET=sk_test_...
 ```
 
 ## 4. Dockerコンテナの起動
@@ -96,7 +92,20 @@ php artisan storage:link
 
 ### 事前準備
 テスト用のデータベース（SQLite推奨）を準備します。
-`.env.testing` ファイルを作成するか、 `phpunit.xml` で設定してください。
+`.env.testing` を作成し、以下を設定してください。
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=/var/www/html/database/database.sqlite
+```
+
+その後、SQLite のデータベースファイルを作成します。
+
+```bash
+touch database/database.sqlite
+php artisan migrate --env=testing
+
+```
 
 ### テストの全件実行
 ```bash

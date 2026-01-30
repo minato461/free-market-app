@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     mariadb-client \
     bash \
-    && docker-php-ext-install pdo_mysql opcache zip \
+    && docker-php-ext-install pdo_mysql opcache zip bcmath \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && rm -rf /var/lib/apt/lists/*
